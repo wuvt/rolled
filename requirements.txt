@@ -1,0 +1,4 @@
+numpy==1.19.5
+pandas==2.2.3
+SQLAlchemy==2.0.38
+typesense==0.21.0
