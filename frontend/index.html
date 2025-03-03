@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>R O L L E D</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://www.wuvt.vt.edu/static/css/wuvt.css?v=28">
+  <script src="https://cdn.jsdelivr.net/npm/typesense@2/dist/typesense.min.js"></script>
+  <script>
+    var typesense = new Typesense.Client({
+      'nodes': [
+        {
+          'host': 'localhost',
+          'port': '8108',
+          'protocol': 'http'
+        },
+      ],
+      'apiKey': 'goodbyeenvygoodbyesorrowyouwerelegendary',
+      'numRetries': 3,
+      'connectionTimeoutSeconds': 2,
+      'retryIntervalSeconds': 0.1,
+      'healthcheckIntervalSeconds': 2,
+      'logLevel': 'debug'
+    })
+
+    function search()
+    {
+      var query = document.getElementById("search-input").value;
+
+      let query_on = ""
+      let toggles = [
+        "album-title",
+        "artist-name"
+      ]
+      for (let toggle of toggles)
+      {
+        let e = document.getElementById("toggle-"+toggle);
+        if (e.checked)
+        {
+          query_on += toggle.replace("-", "_") + ","
+        }
+      }
+      typesense.collections("albums").documents().search({
+        "q": query,
+        "query_by": query_on
+      }).then(function (res) {
+        let result_count = res["found"];
+        let bucket = document.getElementById("search-results");
+        bucket.innerHTML = result_count+" hits!";
+        console.log(res["hits"])
+        for (let hit of res["hits"])
+        {
+          let result = document.createElement("div");
+          result.className = "search-result";
+
+          let info_map = {
+            "Title": "album_title",
+            "Artist": "artist_name",
+            "Location": "location"
+          };
+          for (const [k, v] of Object.entries(info_map))
+          {
+            let info = document.createElement("h3");
+            info.classname = "search-result-element";
+            info.innerHTML = k+": "+hit.document[v];
+            result.appendChild(info);
+          }
+          bucket.appendChild(result);
+        }
+      }).catch(function (error) {
+        document.getElementById("search-results").innerHTML = error;
+      })
+    }
+  </script>
+</head>
+<body>
+  <noscript>
+    <h1>enable the js devilcode NOW!</h1>
+  </noscript>
+  <div id="rolled-header"></div>
+
+  <div id="search-container">
+      <input
+        onchange   = "search();"
+        onkeypress = "this.onchange();"
+        onpaste    = "this.onchange();"
+        oninput    = "this.onchange();"
+        id         = "search-input"
+        type       = "text"
+        placeholder= "search!"
+      />
+    <div id="search-undercarriage">
+      <label>
+        <input id="toggle-album-title" type="checkbox" onchange="search();" checked>
+        Album Titles
+      </label>
+      <label>
+        <input id="toggle-artist-name" type="checkbox" onchange="search();" checked>
+        Artist Names
+      </label>
+    </div>
+  </div>
+  <div id="search-results"></div>
+  <div id="rolled-footer">copyleft 2025 WUVT-FM division of e-teletype ops. (et al.)</div>
+  <script>
+    let header = document.getElementById("rolled-header");
+    for (let char of "ROLLED")
+    {
+      let letter = document.createElement("h1");
+      letter.innerHTML = char;
+      header.appendChild(letter);
+    }
+  </script>
+  </body>
+</html>

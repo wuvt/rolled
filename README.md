@@ -3,9 +3,8 @@
 notes:
 
 * TODO
-    * generate a read only typesense api key, which goes in the frontend
     * ingest
-    * rm tmp.py
+    * use the actual copyleft symbol
 
 * americana spreadsheet
     * unnamed cols

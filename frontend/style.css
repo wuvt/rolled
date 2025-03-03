@@ -1,0 +1,67 @@
+#rolled-header
+{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+#search-input
+{
+    width: 100%;
+    font-size: 3em;
+    margin: auto;
+}
+#search-container
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#search-undercarriage
+{
+    width: 80%;
+    height: 2em;
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+    background-color: rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+#search-undercarriage > label
+{
+    padding: .2em;
+    padding-right: 1em;
+}
+#search-results
+{
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: .5em;
+    margin: 2em;
+    padding: .5em;
+}
+.search-result
+{
+    background-color: rgba(0, 0, 0, 0.03);
+    margin: 1em;
+    padding: .5em;
+}
+.search-result::before
+{
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 8.5em;
+    height: 8.5em;
+    transform: translateX(-4.8em);
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+    background-image: url("assets/vinyl.svg");
+    background-size: cover;
+    background-position: center;
+}
+#rolled-footer
+{
+    width: 100%;
+    position: absolute;
+    bottom: 1em;
+    text-align: center;
+}
