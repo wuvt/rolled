@@ -12,12 +12,15 @@ def run(ctx, cfg):
     })
 
     # generate the key our frontend will use
-    print(db.keys.create({
-        "description": "search-only frontend key",
-        "actions": ["documents:search", "documents:get"],
-        "collections": ["*"],
-        "value": cfg["typesense_searchkey"]
-    }))
+    try:
+        print(db.keys.create({
+            "description": "search-only frontend key",
+            "actions": ["documents:search", "documents:get"],
+            "collections": ["*"],
+            "value": cfg["typesense_searchkey"]
+        }))
+    except typesense.exceptions.ObjectAlreadyExists:
+        pass
 
     for table in ctx:
         print(f"processing {table} into typesense...")
