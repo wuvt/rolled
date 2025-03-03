@@ -7,7 +7,8 @@ from sqlalchemy import create_engine
 
 
 def run(ctx, cfg):
-    db = create_engine(cfg["db_endpoint"])
+    pgc = cfg["postgres"]
+    db = create_engine(f"postgresql://{pgc['username']}:{pgc['password']}@{pgc['host']}:{pgc['port']}/{pgc['database']}")
     for k in ctx:
         print(f"processing {k} into postgres...")
         ctx[k].to_sql(

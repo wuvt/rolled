@@ -1,17 +1,38 @@
 services:
   postgres:
     image: postgres:14-alpine
+    container_name: rolled-pg
     restart: always
     env_file: "dev.env"
     ports:
       - "5432:5432"
     volumes:
      - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: rolled
   typesense:
     image: typesense/typesense:28.0
+    container_name: rolled-ts
     restart: on-failure
+    env_file: "dev.env"
     ports:
       - "8108:8108"
     volumes:
       - ./typesense_data:/data
-    command: '--data-dir /data --api-key=aaachangethis --enable-cors'
+    environment:
+      TYPESENSE_DATA_DIR: /data
+      TYPESENSE_ENABLE_CORS: true
+  ingestion:
+    build:
+      context: ingestion/.
+    container_name: rolled-ingestion
+    restart: always # this triggers after a 24hr sleep
+    env_file: "dev.env"
+    environment:
+      ING_POSTGRES_HOST: rolled-pg
+      ING_POSTGRES_PORT: 5432
+      ING_POSTGRES_USERNAME: root
+      ING_POSTGRES_DATABASE: rolled
+      ING_TYPESENSE_HOST: rolled-ts
+      ING_TYPESENSE_PORT: 8108
+    

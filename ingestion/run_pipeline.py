@@ -1,5 +1,7 @@
 import os, pathlib
 
+print("running pipeline")
+
 pipeline = {
     file.split("-")[0]: __import__(file.split(".py")[0])
     for file in os.listdir(
@@ -12,11 +14,17 @@ ctx = None
 for key in sorted(pipeline):
     print("=-"*4+f"running {key}"+"-="*4)
     ctx = pipeline[key].run(ctx, {
-        "db_endpoint": "postgresql://root:aids@localhost:5432/rolled",
+        "postgres": {
+            "host": os.getenv("ING_POSTGRES_HOST"),
+            "port": os.getenv("ING_POSTGRES_PORT"),
+            "username": os.getenv("ING_POSTGRES_USERNAME"),
+            "password": os.getenv("ING_POSTGRES_PASSWORD"),
+            "database": os.getenv("ING_POSTGRES_DATABASE")
+        },
         "typesense_node": {
-            "host": "localhost",
-            "port": "8108",
+            "host": os.getenv("ING_TYPESENSE_HOST"),
+            "port": os.getenv("ING_TYPESENSE_PORT"),
             "protocol": "http"
         },
-        "typesense_apikey": "aaachangethis"
+        "typesense_apikey": os.getenv("ING_TYPESENSE_READONLY_API_KEY")
     })

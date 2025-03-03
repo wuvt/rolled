@@ -3,8 +3,9 @@
 notes:
 
 * TODO
-    * un hardcode api keys etc.
+    * generate a read only typesense api key, which goes in the frontend
     * ingest
+    * rm tmp.py
 
 * americana spreadsheet
     * unnamed cols
