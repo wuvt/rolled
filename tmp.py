@@ -7,16 +7,11 @@ cfg = {
             "port": "8108",
             "protocol": "http"
         },
-        "typesense_apikey": "aaachangethis"
+        "typesense_apikey": "c940bfc2d4664bc008ae3a37bf8ca160c8ce3ce1768454160ba0bd6141a65c84"
 }
 db = typesense.Client({
     "nodes": [cfg["typesense_node"]],
     "api_key": cfg["typesense_apikey"],
     "connection_timeout_seconds": 2
 })
-print(json.dumps(db.collections.retrieve(), indent=2))
-print(db.collections["albums"])
-print(db.collections["albums"].documents.search({
-    "q": "young",
-    "query_by": "album_title"
-}))
+print(json.dumps(db.keys.retrieve(), indent=2))

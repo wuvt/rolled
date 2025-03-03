@@ -2,7 +2,7 @@
 # EXPECTS as ctx: a dict of table-to-be dataframes
 # RESULTS in: nothing. end of the road.
 # SIDE EFFECT: a stuffed typesense db, ideally
-import typesense, pandas, numpy, json
+import typesense, pandas, numpy, json, time
 
 def run(ctx, cfg):
     db = typesense.Client({
@@ -10,6 +10,14 @@ def run(ctx, cfg):
         "api_key": cfg["typesense_apikey"],
         "connection_timeout_seconds": 2
     })
+
+    # generate the key our frontend will use
+    print(db.keys.create({
+        "description": "search-only frontend key",
+        "actions": ["documents:search", "documents:get"],
+        "collections": ["*"],
+        "value": cfg["typesense_searchkey"]
+    }))
 
     for table in ctx:
         print(f"processing {table} into typesense...")

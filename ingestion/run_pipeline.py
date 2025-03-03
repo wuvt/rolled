@@ -26,5 +26,6 @@ for key in sorted(pipeline):
             "port": os.getenv("ING_TYPESENSE_PORT"),
             "protocol": "http"
         },
-        "typesense_apikey": os.getenv("ING_TYPESENSE_READONLY_API_KEY")
+        "typesense_apikey": os.getenv("ING_TYPESENSE_BOOTSTRAP_API_KEY"),
+        "typesense_searchkey": os.getenv("ING_TYPESENSE_SEARCH_API_KEY")
     })
