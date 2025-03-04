@@ -10,12 +10,12 @@
     var typesense = new Typesense.Client({
       'nodes': [
         {
-          'host': 'localhost',
-          'port': '8108',
+          'host': 'FE_TYPESENSE_HOST',
+          'port': 'FE_TYPESENSE_PORT',
           'protocol': 'http'
         },
       ],
-      'apiKey': 'goodbyeenvygoodbyesorrowyouwerelegendary',
+      'apiKey': 'FE_TYPESENSE_SEARCHKEY',
       'numRetries': 3,
       'connectionTimeoutSeconds': 2,
       'retryIntervalSeconds': 0.1,

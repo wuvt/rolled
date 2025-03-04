@@ -14,15 +14,20 @@ The ingestion and frontend are containerized, and configured entirely via enviro
 
 | environment variable | purpose |
 | -------------------- | ------- |
-| ING_POSTGRES_HOST    | ingress pg endpoint |
+| ING_POSTGRES_HOST    | pg endpoint |
 | ING_POSTGRES_PORT    | ingress pg port |
 | ING_POSTGRES_USERNAME    | ingress pg username |
-| ING_POSTGRES_PASSWORD    | ingress pg password secret. |
+| ING_POSTGRES_PASSWORD    | ingress pg password. secret. |
 | ING_POSTGRES_DATABASE    | ingress pg database name |
 | ING_TYPESENSE_HOST    | ingress typesense node. this software does not support a multi-node search cluster at the moment. |
 | ING_TYPESENSE_PORT    | ingress typesense port. see above re: clusters. |
 | ING_TYPESENSE_BOOTSTRAP_API_KEY    | initial/admin api key. secret. |
 | ING_TYPESENSE_SEARCH_API_KEY    | generated search/read only API key. this will be exposed on the frontend. |
+| FE_TYPESENSE_HOST | typesense backend endpoint relative to client |
+| FE_TYPESENSE_PORT | typesense backend port relative to client |
+| FE_TYPESENSE_SEARCHKEY | generated search/read only API key. this will be exposed on the frontend. |
+
+The endpoints prefixed `ING_` are relative to the *ingestion container*. The ones prefixed `FE_` are relative to the *client*. Keep this in mind as you dockerize or k8s-ize or whatever: the client does not have cluster networking (probably. you might be doing something cursed. not my business if so.).
 
 ### prod
 
@@ -37,10 +42,12 @@ POSTGRES_PASSWORD=<some entropic password. or 'aids'. whichever you prefer.>
 TYPESENSE_API_KEY=<some string, which will become the typesense bootstrap/admin api key>
 ING_POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 ING_TYPESENSE_BOOTSTRAP_API_KEY=${TYPESENSE_API_KEY}
-ING_TYPESENSE_SEARCH_API_KEY=<some string, which will become the search-only key exposed by the frontend>
+ING_TYPESENSE_SEARCH_API_KEY=<some string, which will become the search-only key exposed by 
+the frontend>
+FE_TYPESENSE_SEARCHKEY=${ING_TYPESENSE_SEARCH_API_KEY}
 ```
 
-run `docker compose up`, then open frontend/index.html in the web browser of your choice.
+run `docker compose up`, then open localhost:1337 in the web browser of your choice.
 
 
 ## contributing
