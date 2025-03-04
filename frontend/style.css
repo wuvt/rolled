@@ -1,8 +1,18 @@
+#rolled-wrapper
+{
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
 #rolled-header
 {
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+#rolled-body
+{
+  flex-grow: 1;
 }
 #search-input
 {
@@ -61,7 +71,6 @@
 #rolled-footer
 {
     width: 100%;
-    position: absolute;
-    bottom: 1em;
     text-align: center;
+    margin-bottom: 0.5em;
 }
