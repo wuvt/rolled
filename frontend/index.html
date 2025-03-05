@@ -47,24 +47,30 @@
         let result_count = res["found"];
         let bucket = document.getElementById("search-results");
         bucket.innerHTML = result_count+" hits!";
-        console.log(res["hits"])
-        for (let hit of res["hits"])
+        for (const hit of res["hits"])
         {
           let result = document.createElement("div");
           result.className = "search-result";
 
-          let info_map = {
-            "Title": "album_title",
-            "Artist": "artist_name",
-            "Location": "location"
-          };
-          for (const [k, v] of Object.entries(info_map))
+          let cover = document.createElement("img");
+          cover.src = `https://coverartarchive.org/release-group/${hit.document["mbid"]}/front`;
+          cover.className = "cover-art";
+          result.appendChild(cover);
+
+          let used_info = [
+            "album_title",
+            "artist_name",
+            "location",
+            "mbid"
+          ];
+          for (let v of used_info)
           {
-            let info = document.createElement("h3");
-            info.classname = "search-result-element";
-            info.innerHTML = k+": "+hit.document[v];
+            let info = document.createElement("div");
+            info.className = "search-result-element "+v;
+            info.innerHTML = hit.document[v];
             result.appendChild(info);
           }
+
           bucket.appendChild(result);
         }
       }).catch(function (error) {

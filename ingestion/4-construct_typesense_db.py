@@ -32,6 +32,8 @@ def run(ctx, cfg):
         if table in [c["name"] for c in db.collections.retrieve()]:
             db.collections[table].delete()
 
+        df["row_idx"] = range(1, len(df) + 1)
+
         col_types = {
             col: {
                 numpy.dtype("float32"): "float",
@@ -52,7 +54,7 @@ def run(ctx, cfg):
                 }
                 for col in df.columns
             ],
-            "default_sorting_field": "mbid"
+            "default_sorting_field": "row_idx"
         })
 
         for i, row in df.iterrows():

@@ -5,4 +5,4 @@ COPY . /ingestion
 
 RUN pip install pandas sqlalchemy typesense openpyxl psycopg2-binary
 
-CMD sleep 10 && python3 run_pipeline.py && sleep 68400
+CMD sleep 5 && python3 run_pipeline.py && sleep 68400
