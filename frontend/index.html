@@ -57,6 +57,9 @@
           cover.className = "cover-art";
           result.appendChild(cover);
 
+          let info_wrapper = document.createElement("div");
+          info_wrapper.className = "search-result-info";
+
           let used_info = [
             "album_title",
             "artist_name",
@@ -68,8 +71,9 @@
             let info = document.createElement("div");
             info.className = "search-result-element "+v;
             info.innerHTML = hit.document[v];
-            result.appendChild(info);
+            info_wrapper.appendChild(info);
           }
+          result.appendChild(info_wrapper);
 
           bucket.appendChild(result);
         }
