@@ -55,6 +55,11 @@
           let cover = document.createElement("img");
           cover.src = `https://coverartarchive.org/release-group/${hit.document["mbid"]}/front`;
           cover.className = "cover-art";
+          cover.addEventListener("error", function() {
+            if (this.src != "/assets/cover-404.png") {
+              this.src = "/assets/cover-404.png";
+            }
+          });
           result.appendChild(cover);
 
           let info_wrapper = document.createElement("div");
