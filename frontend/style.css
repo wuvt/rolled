@@ -111,7 +111,7 @@
     bottom: 0em;
     right: .2em;
     width: auto !important;
-    transform: translateX(0) !important;
+    transform: translate(0, -10%) !important;
 }
 .album_title
 {
