@@ -93,6 +93,8 @@
 {
     position: absolute;
     height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
     transform: scale(.90);
     border: none;
     border-radius: 10px;
