@@ -8,7 +8,7 @@
 #       "artists":  final derived artists dataframe
 #       "misc":     final derived ids/liners/promos/etc dataframe
 #   }
-import pandas
+import pandas, requests, time
 
 def run(ctx, cfg):
     # leaving songs/artists/misc off the proto
@@ -20,7 +20,29 @@ def run(ctx, cfg):
     }
 
     # albums
-    res["albums"]["mbid"] = 0
+    mbids = []
+    start_time = time.time()
+    count = 0
+    for index, row in res["albums"].iterrows(): 
+        artist_name = row["artist_name"]
+        album_title = row["album_title"]
+        headers = { #generic ai generated header (not final)
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'application/json',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+        }
+        data = requests.get(f"https://musicbrainz.org/ws/2/release-group/?query=album:{album_title}&artist:{artist_name}&fmt=json&limit=1", headers=headers)
+        mbid = data.json()["release-groups"][0]["id"]
+        mbids.append(mbid)
+        count += 1
+        print("MBID:", mbid, time.time() - start_time, "At:", count, "Left:", len(res["albums"]) - count)
+        time.sleep(1/5) #API ratelimit of ?
+    
+    res["albums"]["mbid"] = mbids
 
 
     # songs
