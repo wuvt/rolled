@@ -20,7 +20,7 @@ MBSEARCH_HEADERS = {
     'Pragma': 'no-cache',
 }
 
-MBSEARCH_RELEASEGROUP_QUERY = "https://musicbrainz.org/ws/2/release-group/?query=album:{album_title}&artist:{artist_name}&fmt=json&limit=1"
+MBSEARCH_RELEASEGROUP_QUERY = "https://musicbrainz.org/ws/2/release-group/?query=album:{album_title} AND artist:{artist_name}&fmt=json&limit=1"
 
 def run(ctx, cfg):
     # leaving songs/artists/misc off the proto
