@@ -69,7 +69,8 @@ def run(ctx, cfg):
                 time.sleep(1/2)
                 continue
 
-            mbid = response["release-groups"][0]["id"]
+            release_groups = response["release-groups"]
+            mbid = release_groups[0]["id"] if len(release_groups) > 0 else ""
             mbids.append(mbid)
             count += 1
             print("MBID:", mbid, time.time() - start_time, "At:", count, "Left:", len(res["albums"]) - count, "Fetched?:", "Y" if cached_response is None else "N")
