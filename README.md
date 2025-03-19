@@ -66,23 +66,6 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. 
 ```
 
-
-## notes (remember to delete this before merging lol)
-
-* TODO
-    * get a google drive or something with the other spreadsheets from len
-    * use the actual copyleft symbol
-
-* americana spreadsheet
-    * unnamed cols
-    * mixed datatypes i am quickly going insane
-        * there are slashes in a release year ar tou kiedding me aaaaaaaaaa
-        * help
-        * fuck it errythings a string god bless america
-            * this is just for typesense
-* god look at her ingest
-    * what a feeling
-
 ## roadmap
 * spread the scope to include liners/promos/IDs/etc.
 * allow digital playback of media for which there is a digital copy
