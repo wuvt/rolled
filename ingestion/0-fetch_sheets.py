@@ -2,7 +2,14 @@
 #  download link, or whatever.
 # EXPECTS as ctx: nothing
 # RESULTS in: a list of fresh *.xlsx files in source/
+import os, pathlib
 
 def run(ctx, cfg):
-    # i manually plopped the americana sheet len gave us in there for prototyping.
-    return ["INVENTORY_Americana.xlsx"]
+    # i manually plopped <s>the americana sheet</s> all the sheets
+    #  len gave us in there for prototyping.
+    basepath = str(pathlib.Path(__file__).parent.absolute() / "source")
+    return [
+        sheet
+        for sheet in os.listdir(basepath)
+        if sheet.split(".")[-1] in ["xls", "xlsx"]
+    ]

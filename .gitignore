@@ -3,3 +3,5 @@
 postgres_data/**
 typesense_data/**
 ingestion_data/**
+**.xls
+**.xlsx
