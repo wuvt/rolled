@@ -2,7 +2,7 @@
 # EXPECTS as ctx: a dict of table-to-be dataframes
 # RESULTS in: nothing. end of the road.
 # SIDE EFFECT: a stuffed typesense db, ideally
-import typesense, pandas, numpy, json, time
+import typesense, pandas, numpy, json, time, math
 
 def run(ctx, cfg):
     db = typesense.Client({
@@ -60,7 +60,7 @@ def run(ctx, cfg):
         for i, row in df.iterrows():
             print(i)
             d = {
-                k: str(v) if col_types[k] == "string" else v
+                k: str(v) if col_types[k] == "string" else (0.0 if isinstance(v, float) and math.isnan(v) else v)
                 for k, v in row.to_dict().items()
             }
             print(d)

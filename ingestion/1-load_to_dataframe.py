@@ -24,7 +24,4 @@ def run(ctx, cfg):
         axis = 1)
 
     # merge all the sheets.
-    while len(sheets) > 1:
-        sheets[1] = sheets.pop(0).merge(sheets[1])
-
-    return sheets[0]
+    return pandas.concat(sheets, ignore_index=True, sort=False)
