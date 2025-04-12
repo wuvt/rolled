@@ -5,8 +5,9 @@ import pandas, pathlib
 def run(ctx, cfg):
     basepath = str(pathlib.Path(__file__).parent.absolute() / "source")
     sheets = [
-        (pandas.read_excel(basepath+"/"+fn), fn)
+        (sheet[1], fn)
         for fn in ctx
+        for sheet in pandas.read_excel(basepath+"/"+fn, sheet_name=None).items()
     ]
 
     for i in range(len(sheets)):
