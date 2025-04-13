@@ -3,5 +3,6 @@
 postgres_data/**
 typesense_data/**
 ingestion_data/**
+!ingestion_data/sheets/.gitignore
 **.xls
 **.xlsx

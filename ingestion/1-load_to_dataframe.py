@@ -1,9 +1,9 @@
-# EXPECTS as ctx: a list of *.xlsx files in source/
+# EXPECTS as ctx: a list of *.xlsx files in "/data/sheets/"
 # RESULTS in: a pandas dataframe of all the files
 import pandas, pathlib
 
 def run(ctx, cfg):
-    basepath = str(pathlib.Path(__file__).parent.absolute() / "source")
+    basepath = str(pathlib.Path(__file__).parent.absolute() / "/data/sheets/")
     sheets = [
         (sheet[1], fn)
         for fn in ctx

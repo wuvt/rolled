@@ -29,6 +29,8 @@ The ingestion and frontend are containerized, and configured entirely via enviro
 
 The endpoints prefixed `ING_` are relative to the *ingestion container*. The ones prefixed `FE_` are relative to the *client*. Keep this in mind as you dockerize or k8s-ize or whatever: the client does not have cluster networking (probably. you might be doing something cursed. not my business if so.).
 
+Furthermore, the ingestion scripts expect `/data` to contain a `/data/sheets` with the source spreadsheets. Cached MusicBrainz API content will be read and written to `/data/manifest.json`, so if you're bringing your own mount that as well.
+
 ### prod
 
 In production, you will probably be inclined to use a non-local postgres or typesense database.
@@ -47,7 +49,7 @@ the frontend>
 FE_TYPESENSE_SEARCHKEY=${ING_TYPESENSE_SEARCH_API_KEY}
 ```
 
-run `docker compose up`, then open localhost:1337 in the web browser of your choice.
+place your spreadsheets in `./ingestion_data/sheets/`, run `docker compose up`, then open localhost:1337 in the web browser of your choice.
 
 
 ## contributing
