@@ -24,5 +24,11 @@ def run(ctx, cfg):
         },
         axis = 1)
 
-    # merge all the sheets.
-    return pandas.concat(sheets, ignore_index=True, sort=False)
+    # merge all the sheets. drop NaN rows.
+    #  the second bit is needed because some of len's xlsx files contain
+    #  entirely empty sheets.
+    df = pandas.concat(sheets, ignore_index=True, sort=False)
+    df = df[df['artist_name'].notna()]
+    df = df[df['artist_name'].str.strip() != '']
+    df = df[df['artist_name'].str.lower() != 'nan']
+    return df
