@@ -19,9 +19,7 @@ services:
       - "8108:8108"
     volumes:
       - ./typesense_data:/data
-    environment:
-      TYPESENSE_DATA_DIR: /data
-      TYPESENSE_ENABLE_CORS: true
+    command: '--data-dir /data --api-key=${TYPESENSE_API_KEY} --enable-cors --cors-domains "http://localhost:1337,http://127.0.0.1:1337,http://[::1]:1337"'
   ingestion:
     build:
       context: ingestion/.
