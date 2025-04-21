@@ -26,6 +26,7 @@ The ingestion and frontend are containerized, and configured entirely via enviro
 | FE_TYPESENSE_HOST | typesense backend endpoint relative to client |
 | FE_TYPESENSE_PORT | typesense backend port relative to client |
 | FE_TYPESENSE_SEARCHKEY | generated search/read only API key. this will be exposed on the frontend. |
+| FE_ALLOWED | space-separated list of allowed CIDR-format IP ranges. by default the frontend denies all access. |
 
 The endpoints prefixed `ING_` are relative to the *ingestion container*. The ones prefixed `FE_` are relative to the *client*. Keep this in mind as you dockerize or k8s-ize or whatever: the client does not have cluster networking (probably. you might be doing something cursed. not my business if so.).
 
