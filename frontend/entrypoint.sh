@@ -11,5 +11,12 @@ for VAR in $TARGETS; do
     sed -i "s|${VAR}|${ENVAR}|g" /usr/share/nginx/html/index.html
 done
 
+for ALLOWED in $FE_ALLOWED; do
+    echo -n "allow ${ALLOWED};" >> /allow-list
+done
+
+ALLOW_LIST=`cat /allow-list`
+sed -i "s|ALLOW_LIST|${ALLOW_LIST}|g" /etc/nginx/conf.d/default.conf
+
 # defer
 exec "$@"
