@@ -57,6 +57,7 @@ def run(ctx, cfg):
             "default_sorting_field": "row_idx"
         })
 
+        batch = []
         for i, row in df.iterrows():
             print(i)
             d = {
@@ -64,6 +65,10 @@ def run(ctx, cfg):
                 for k, v in row.to_dict().items()
             }
             print(d)
-            db.collections[table].documents.create(d)
+            batch.append(d)
+        db.collections[table].documents.import_(
+            batch,
+            {"action": "upsert"}
+        )
     
     return None
