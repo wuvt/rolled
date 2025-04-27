@@ -30,7 +30,8 @@
       let query_on = ""
       let toggles = [
         "album-title",
-        "artist-name"
+        "artist-name",
+        "label"
       ]
       for (let toggle of toggles)
       {
@@ -115,6 +116,10 @@
       <label>
         <input id="toggle-artist-name" type="checkbox" onchange="search();" checked>
         Artist Names
+      </label>
+      <label>
+        <input id="toggle-label" type="checkbox" onchange="search();">
+        Labels
       </label>
     </div>
   </div>
