@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:14-alpine
+    image: docker.io/library/postgres:14-alpine
     container_name: rolled-pg
     restart: always
     env_file: "dev.env"
@@ -11,7 +11,7 @@ services:
     environment:
       POSTGRES_DB: rolled
   typesense:
-    image: typesense/typesense:28.0
+    image: docker.io/typesense/typesense:28.0
     container_name: rolled-ts
     restart: on-failure
     env_file: "dev.env"

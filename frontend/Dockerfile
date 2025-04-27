@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM docker.io/library/nginx:alpine
 
 # shithack. i'm lazy. ~rsk (this comment is from vtluug-site but it still applies)
 RUN rm -rf /usr/share/nginx/html/*
