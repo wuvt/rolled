@@ -133,14 +133,14 @@ def run(ctx, cfg):
             r_mbids.append("")
             continue
         
-        mbid = rg_mbids[index]
+        rg_mbid = rg_mbids[index]
         label = str(row["label"])
         date = str(row["release_year"])
         for attempt in range(5):
             try:
-                cached_response = r_manifest.get(mbid)
+                cached_response = r_manifest.get(rg_mbid)
                 response = requests.get(
-                    MBSEARCH_RELEASE.format(mbid=mbid),
+                    MBSEARCH_RELEASE.format(mbid=rg_mbid),
                     headers={"User-Agent": "wuvt.vt.edu ROLLED/1"}
                 ).json() if cached_response is None else cached_response
             except requests.exceptions.ConnectionError:
@@ -156,9 +156,9 @@ def run(ctx, cfg):
                 response["releases"] = []
             releases = response["releases"]
             if len(releases) == 0:
-                mbid = ""
+                r_mbid = ""
             elif len(releases) == 1:
-                mbid = releases[0]["id"] 
+                r_mbid = releases[0]["id"] 
             else:#this is ugly
                 possible_rs = match_date(releases, date)
                 if len(possible_rs) == 0:
@@ -182,13 +182,13 @@ def run(ctx, cfg):
                         else:
                             possible_rs = temp_rs2
 
-                mbid = possible_rs[0]["id"] if len(possible_rs) != 0 else releases[0]["id"] 
-            r_mbids.append(mbid)
+                r_mbid = possible_rs[0]["id"] if len(possible_rs) != 0 else releases[0]["id"] 
+            r_mbids.append(r_mbid)
             count += 1
-            print("R_MBID:", mbid, time.time() - start_time, "At:", count, "Left:", len(res["albums"]) - count, "Fetched?:", "Y" if cached_response is None else "N")
+            print("R_MBID:", r_mbid, time.time() - start_time, "At:", count, "Left:", len(res["albums"]) - count, "Fetched?:", "Y" if cached_response is None else "N")
             
             if cached_response is None:
-                r_manifest[mbid] = {
+                r_manifest[rg_mbid] = {
                     "releases": response["releases"]
                 }
                 with open(R_MANIFEST_PATH, "wb") as f:
