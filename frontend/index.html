@@ -31,6 +31,7 @@
       let toggles = [
         "album-title",
         "artist-name",
+        "song",
         "label"
       ]
       for (let toggle of toggles)
@@ -54,7 +55,7 @@
           result.className = "search-result";
 
           let cover = document.createElement("img");
-          cover.src = `https://coverartarchive.org/release-group/${hit.document["mbid"]}/front`;
+          cover.src = `https://coverartarchive.org/release/${hit.document["mbid"]}/front`;
           cover.className = "cover-art";
           cover.addEventListener("error", function() {
             if (this.src != "/assets/cover-404.png") {
