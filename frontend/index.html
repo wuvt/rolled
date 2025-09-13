@@ -30,6 +30,7 @@
       let query_on = ""
       let toggles = [
         "album-title",
+        "tracklist",
         "artist-name",
         "label"
       ]
@@ -81,6 +82,20 @@
             info.innerHTML = hit.document[v];
             info_wrapper.appendChild(info);
           }
+          
+          let tracklist = document.createElement("details");
+          let tracklist_title = document.createElement("summary");
+          let tracklist_body = document.createElement("p");
+          
+          tracklist_title.innerHTML = "Songs";
+          tracklist_body.innerHTML = hit.document["tracklist"];
+          
+          tracklist.className = "search-result-element tracklist";
+          
+          tracklist.appendChild(tracklist_title);
+          tracklist.appendChild(tracklist_body);
+          info_wrapper.appendChild(tracklist);
+          
           result.appendChild(info_wrapper);
 
           bucket.appendChild(result);
@@ -112,6 +127,10 @@
       <label>
         <input id="toggle-album-title" type="checkbox" onchange="search();" checked>
         Album Titles
+      </label>
+      <label>
+        <input id="toggle-tracklist" type="checkbox" onchange="search();" checked>
+        Songs
       </label>
       <label>
         <input id="toggle-artist-name" type="checkbox" onchange="search();" checked>

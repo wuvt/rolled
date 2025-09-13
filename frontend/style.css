@@ -92,7 +92,7 @@
 .cover-art
 {
     position: absolute;
-    height: 100%;
+    height: 9em;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     transform: scale(.90);
