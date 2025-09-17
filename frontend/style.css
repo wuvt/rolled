@@ -127,6 +127,10 @@
 {
     display: none;
 }
+.release_group
+{
+    display: none;
+}
 .search-result-element
 {
     width: calc(100% - 9.5em);

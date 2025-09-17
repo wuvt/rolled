@@ -178,6 +178,7 @@ def run(ctx, cfg):
                 f.write(orjson.dumps(r_manifest, option=orjson.OPT_INDENT_2))
 
     res["albums"]["mbid"] = r_mbids
+    res["albums"]["release_group"] = rg_mbids
 
 
     # songs
