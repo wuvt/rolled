@@ -8,16 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Get release version
-      id: get_version
-      run: echo RELEASE_VERSION=$(echo ${GITHUB_REF:25}) >> $GITHUB_ENV
-    - name: Build and push Docker image to GitHub Container Registry
-      uses: docker/build-push-action@v1
+    - name: Publish to GitHub Package Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        DOCKER_BUILDKIT: "1"
       with:
-        repository: wuvt/rolled-ingestion
+        name: wuvt/rolled-ingestion
         username: wuvt
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
-        tags: latest,${{ env.RELEASE_VERSION }}
-        path: ingestion
-        add_git_labels: true
+        dockerfile: ingestion/Dockerfile
+        tag_names: true
