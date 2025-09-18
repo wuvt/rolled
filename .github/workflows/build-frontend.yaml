@@ -17,5 +17,6 @@ jobs:
         username: wuvt
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
+        workdir: frontend
         dockerfile: frontend/Dockerfile
         tag_names: true
