@@ -136,3 +136,8 @@
     width: calc(100% - 9.5em);
     transform: translateX(9.5em);
 }
+/* until we can unfuck it a little bit */
+.tracklist
+{
+    display: none;
+}
