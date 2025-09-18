@@ -1,0 +1,143 @@
+#rolled-wrapper
+{
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+#rolled-header
+{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+#rolled-body
+{
+  flex-grow: 1;
+  font-family: Inter,Segoe UI,Tahoma,Geneva,Verdana,sans-serif
+}
+#search-input
+{
+    width: 100%;
+    background-color: #fff;
+    color: #1e1e2d;
+    box-shadow: 0 0 15px #0003;
+    margin: 5px;
+    padding: 15px;
+    font-size: x-large;
+    border: none;
+    border-radius: 7px;
+    flex: 1 1 0px;
+    margin-bottom: 0;
+}
+#search-input:focus
+{
+    border-bottom: .2em solid #1e1e2d;
+    margin-bottom: -.2em;
+}
+#search-container
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#search-undercarriage
+{
+    width: 80%;
+    height: 2em;
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+    background-color: rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+#search-undercarriage > label
+{
+    padding: .2em;
+    padding-right: 1em;
+}
+#search-results
+{
+    background-color: rgba(0, 0, 0, 0.0);
+    border-radius: .5em;
+    margin: 2em;
+    padding: .5em;
+}
+.search-result-info
+{
+    padding-top: 1%;
+}
+.search-result
+{
+    background-color: #fff;
+    color: #1e1e2d;
+    box-shadow: 0 0 12px #0003;
+    border: none;
+    border-radius: 7px;
+    margin: 1em;
+    padding: .1em;
+    min-height: 9em;
+    position: relative;
+}
+.search-result:hover
+{
+    border-bottom: .2em solid #1e1e2d;
+    margin-bottom: -.2em;
+}
+.search-result:hover > .cover-art
+{
+    box-shadow: 0 0 20px #0003;
+    transform: scale(.91);
+}
+.cover-art
+{
+    position: absolute;
+    height: 9em;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transform: scale(.90);
+    border: none;
+    border-radius: 10px;
+}
+#rolled-footer
+{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+.location
+{
+    font-style: italic;
+    position: absolute;
+    font-size: 1.5em;
+    bottom: 0em;
+    right: .2em;
+    width: auto !important;
+    transform: translate(0, -10%) !important;
+}
+.album_title
+{
+    font-weight: bold;
+}
+.artist_name, .label, .release_year
+{
+    color: rgba(0, 0, 0, .7);
+}
+.mbid
+{
+    display: none;
+}
+.release_group
+{
+    display: none;
+}
+.search-result-element
+{
+    width: calc(100% - 9.5em);
+    transform: translateX(9.5em);
+}
+/* until we can unfuck it a little bit */
+.tracklist
+{
+    display: none;
+}
