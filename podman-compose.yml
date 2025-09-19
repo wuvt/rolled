@@ -24,7 +24,7 @@ services:
     build:
       context: ingestion/.
     container_name: rolled-ingestion
-    restart: always # this triggers after a 24hr sleep
+    restart: on-failure
     env_file: "dev.env"
     environment:
       ING_POSTGRES_HOST: rolled-pg
