@@ -24,7 +24,7 @@ for key in sorted(pipeline):
         "typesense_node": {
             "host": os.getenv("ING_TYPESENSE_HOST"),
             "port": os.getenv("ING_TYPESENSE_PORT"),
-            "protocol": "http"
+            "protocol": os.getenv("ING_TYPESENSE_PROTO"),
         },
         "typesense_apikey": os.getenv("ING_TYPESENSE_BOOTSTRAP_API_KEY"),
         "typesense_searchkey": os.getenv("ING_TYPESENSE_SEARCH_API_KEY")

@@ -33,6 +33,7 @@ services:
       ING_POSTGRES_DATABASE: rolled
       ING_TYPESENSE_HOST: rolled-ts
       ING_TYPESENSE_PORT: 8108
+      ING_TYPESENSE_PROTO: http
     volumes:
       - ./ingestion_data:/data
   frontend:

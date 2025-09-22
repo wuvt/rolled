@@ -21,6 +21,7 @@ The ingestion and frontend are containerized, and configured entirely via enviro
 | ING_POSTGRES_DATABASE    | ingress pg database name |
 | ING_TYPESENSE_HOST    | ingress typesense node. this software does not support a multi-node search cluster at the moment. |
 | ING_TYPESENSE_PORT    | ingress typesense port. see above re: clusters. |
+| ING_TYPESENSE_PROTO    | ingress typesense protocol. (http/https) |
 | ING_TYPESENSE_BOOTSTRAP_API_KEY    | initial/admin api key. secret. |
 | ING_TYPESENSE_SEARCH_API_KEY    | generated search/read only API key. this will be exposed on the frontend. |
 | FE_TYPESENSE_HOST | typesense backend endpoint relative to client |
