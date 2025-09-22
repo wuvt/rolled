@@ -8,7 +8,7 @@ def run(ctx, cfg):
     db = typesense.Client({
         "nodes": [cfg["typesense_node"]],
         "api_key": cfg["typesense_apikey"],
-        "connection_timeout_seconds": 2
+        "connection_timeout_seconds": 10
     })
 
     # generate the key our frontend will use
