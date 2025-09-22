@@ -25,6 +25,7 @@ The ingestion and frontend are containerized, and configured entirely via enviro
 | ING_TYPESENSE_SEARCH_API_KEY    | generated search/read only API key. this will be exposed on the frontend. |
 | FE_TYPESENSE_HOST | typesense backend endpoint relative to client |
 | FE_TYPESENSE_PORT | typesense backend port relative to client |
+| FE_TYPESENSE_PROTO | typesense backend protocol (http/https) |
 | FE_TYPESENSE_SEARCHKEY | generated search/read only API key. this will be exposed on the frontend. |
 | FE_ALLOWED | space-separated list of allowed CIDR-format IP ranges. by default the frontend denies all access. |
 
