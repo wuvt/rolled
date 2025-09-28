@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="https://www.wuvt.vt.edu/static/css/wuvt.css?v=28">
   <script src="https://cdn.jsdelivr.net/npm/typesense@2/dist/typesense.min.js"></script>
   <script>
+    // for some reason typesense treats pages 1 and 0 as the same thing, go figure.
+    var page = 1;
+    var search_flag = false;
     var typesense = new Typesense.Client({
       'nodes': [
         {
@@ -23,7 +26,7 @@
       'logLevel': 'debug'
     })
 
-    function search()
+    async function search(page)
     {
       var query = document.getElementById("search-input").value;
 
@@ -42,10 +45,16 @@
           query_on += toggle.replace("-", "_") + ","
         }
       }
-      typesense.collections("albums").documents().search({
+      await typesense.collections("albums").documents().search({
         "q": query,
-        "query_by": query_on
+        "query_by": query_on,
+        'page': page,
+        'per_page': 10
       }).then(function (res) {
+        if (res['hits'].length === 0) {
+            search_flag = false;
+            return;
+        }
         let result_count = res["found"];
         let bucket = document.getElementById("search-results");
         bucket.innerHTML = result_count+" hits!";
@@ -104,9 +113,25 @@
 
           bucket.appendChild(result);
         }
+        search_flag = true;
       }).catch(function (error) {
         document.getElementById("search-results").innerHTML = error;
+        search_flag = false;
       })
+    }
+
+    async function incrementSearch() {
+        await search(page + 1);
+        if (search_flag === true) {
+            search_flag = false;
+            page++;
+        }
+    }
+    
+    function decrementSearch() {
+      if (page - 1 >= 1) {
+        search(--page);
+      }
     }
   </script>
 </head>
@@ -119,7 +144,7 @@
   <div id="rolled-body">
   <div id="search-container">
       <input
-        onchange   = "search();"
+        onchange   = "page = 1; search(page);"
         onkeypress = "this.onchange();"
         onpaste    = "this.onchange();"
         oninput    = "this.onchange();"
@@ -129,7 +154,7 @@
       />
     <div id="search-undercarriage">
       <label>
-        <input id="toggle-album-title" type="checkbox" onchange="search();" checked>
+        <input id="toggle-album-title" type="checkbox" onchange="page = 1; search(page);" checked>
         Album Titles
       </label>
       <!-- <label>
@@ -137,16 +162,20 @@
         Songs
       </label> -->
       <label>
-        <input id="toggle-artist-name" type="checkbox" onchange="search();" checked>
+        <input id="toggle-artist-name" type="checkbox" onchange="page = 1; search(page);" checked>
         Artist Names
       </label>
       <label>
-        <input id="toggle-label" type="checkbox" onchange="search();">
+        <input id="toggle-label" type="checkbox" onchange="page = 1; search(page);">
         Labels
       </label>
     </div>
   </div>
   <div id="search-results"></div>
+  <div id="pagination-buttons">
+    <button onclick="decrementSearch()">Previous page</button>
+    <button onclick="incrementSearch()">Next page</button>
+  </div>
   </div>
   <div id="rolled-footer">copyleft 2025 WUVT-FM division of e-teletype ops. (et al.)</div>
   <script>
