@@ -19,9 +19,26 @@ RG_MANIFEST_PATH = "/data/rg_manifest.json"
 R_MANIFEST_PATH = "/data/r_manifest.json"
 T_MANIFEST_PATH = "/data/t_manifest.json"
 
-MBSEARCH_RELEASEGROUP_QUERY = "http://kissnightclub.wuvt.vt.edu:5000/ws/2/release-group/?query=album:{album_title}%20AND%20artist:{artist_name}&fmt=json&limit=1"
-MBSEARCH_RELEASE = "http://kissnightclub.wuvt.vt.edu:5000/ws/2/release/?query=rgid:{mbid}&fmt=json"
-MBLOOKUP_RELEASE = "http://kissnightclub.wuvt.vt.edu:5000/ws/2/release/{mbid}?inc=recordings&fmt=json"
+MBAPI_BASE = "http://musicbrainz.org"
+
+MBSEARCH_RELEASEGROUP_QUERY = MBAPI_BASE + "/ws/2/release-group/?query=album:{album_title}%20AND%20artist:{artist_name}&fmt=json&limit=1"
+MBSEARCH_RELEASE = MBAPI_BASE + "/ws/2/release/?query=rgid:{mbid}&fmt=json"
+MBLOOKUP_RELEASE = MBAPI_BASE + "/ws/2/release/{mbid}?inc=recordings&fmt=json"
+
+QUERY_SLEEP = 3
+
+"""
+`cache` here refers to the name of the .json cache used.
+"""
+def cached_mb_get(endpoint, cache):
+    cached_response = manifest.get(title+artist)
+    response = requests.get(
+        MBSEARCH_RELEASEGROUP_QUERY.format(
+            album_title=title, 
+            artist_name=artist
+        ), 
+        headers=MBSEARCH_HEADERS
+    ).json() if cached_response is None else cached_response
 
 def match_date(releases, date):
     matched = []
@@ -77,7 +94,7 @@ def run(ctx, cfg):
 
     """
     populating albums with per-row MusicBrainz release-group MBIDs:
-        - make a query to the search API (cached, /data/manifest.json)
+        - make a query to the search API (cached, /data/xxx_manifest.json)
             - rate-limited heavily. will take a while if not cached.
         - set if applicable. albums not found should have an mbid of ""
     """
@@ -98,6 +115,7 @@ def run(ctx, cfg):
             ), 
             headers=MBSEARCH_HEADERS
         ).json() if cached_response is None else cached_response
+        if cached_response is None: time.sleep(QUERY_SLEEP)
         if response.get("release-groups") is None:
             response["release-groups"] = []
         release_groups = response["release-groups"]
@@ -134,6 +152,7 @@ def run(ctx, cfg):
                 MBSEARCH_RELEASE.format(mbid=rg_mbid),
                 headers=MBSEARCH_HEADERS
             ).json() if cached_response is None else cached_response
+        if cached_response is None: time.sleep(QUERY_SLEEP)
 
         if response.get("releases") is None:
             response["releases"] = []
@@ -207,10 +226,13 @@ def run(ctx, cfg):
         skip_cache = False
         
         cached_response = t_manifest.get(r_mbid) 
-        response = requests.get(
-            MBLOOKUP_RELEASE.format(mbid=r_mbid),
-            headers=MBSEARCH_HEADERS
-        ).json() if cached_response is None else cached_response
+        try:
+            response = requests.get(
+                MBLOOKUP_RELEASE.format(mbid=r_mbid),
+                headers=MBSEARCH_HEADERS
+            ).json() if cached_response is None else cached_response
+            if cached_response is None: time.sleep(QUERY_SLEEP)
+        except: response = {}
         
         tracks = []
         trackrows = []
@@ -225,8 +247,6 @@ def run(ctx, cfg):
                             "release": row["mbid"],
                             "release-group": rg_mbids[count]
                         })
-
-
         except:
             tracks = []
             skip_cache = True
