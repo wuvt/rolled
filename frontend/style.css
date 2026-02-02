@@ -115,6 +115,13 @@
     width: auto !important;
     transform: translate(0, -10%) !important;
 }
+.flac_copy
+{
+    position: absolute;
+    top: 0em;
+    right: .2em;
+    height: 3.5em;
+}
 .album_title
 {
     font-weight: bold;

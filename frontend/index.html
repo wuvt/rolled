@@ -111,6 +111,13 @@
           tracklist.appendChild(tracklist_body);
           info_wrapper.appendChild(tracklist);
           
+          console.log(hit.document["flac_copy"]);
+          if (hit.document["flac_copy"]) {
+            let digital = document.createElement("img");
+            digital.src = "/assets/digital.svg";
+            digital.className = "flac_copy"
+            info_wrapper.appendChild(digital);
+          }
           result.appendChild(info_wrapper);
 
           bucket.appendChild(result);

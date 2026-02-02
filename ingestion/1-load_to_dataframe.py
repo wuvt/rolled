@@ -40,5 +40,8 @@ def run(ctx, cfg):
     # remove the possibility of having the year as a float
     df["release_year"].fillna('')
     df["release_year"] = df["release_year"].astype(str).str.strip().str[:4]
+    
+    #Sanitize location
+    df["location"] = df["location"].str.replace("[", "").str.replace("]", "")
 
     return df
