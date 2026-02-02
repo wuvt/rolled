@@ -123,11 +123,11 @@
 {
     color: rgba(0, 0, 0, .7);
 }
-.mbid
+.release_id
 {
     display: none;
 }
-.release_group
+.release-group_id
 {
     display: none;
 }
