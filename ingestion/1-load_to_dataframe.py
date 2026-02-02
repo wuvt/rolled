@@ -37,8 +37,11 @@ def run(ctx, cfg):
  
     # enforce types
     df["flac_copy"] = df["flac_copy"] == 'FLAC'
+    df["missing"] = df["missing"].fillna('')
+    df["missing_date"] = df["missing"]
+    df["missing"] = df["missing"] != ""
     # remove the possibility of having the year as a float
-    df["release_year"].fillna('')
+    df["release_year"] = df["release_year"].fillna('')
     df["release_year"] = df["release_year"].astype(str).str.strip().str[:4]
     
     #Sanitize location

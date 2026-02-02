@@ -111,12 +111,17 @@
           tracklist.appendChild(tracklist_body);
           info_wrapper.appendChild(tracklist);
           
-          console.log(hit.document["flac_copy"]);
           if (hit.document["flac_copy"]) {
             let digital = document.createElement("img");
             digital.src = "/assets/digital.svg";
-            digital.className = "flac_copy"
+            digital.className = "flag"
             info_wrapper.appendChild(digital);
+          }
+          if (hit.document["missing"]) {
+            let missing = document.createElement("img");
+            missing.src = "/assets/missing.svg";
+            missing.className = "flag"
+            info_wrapper.appendChild(missing);
           }
           result.appendChild(info_wrapper);
 
