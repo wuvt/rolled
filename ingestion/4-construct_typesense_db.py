@@ -36,6 +36,7 @@ def run(ctx, cfg):
 
         col_types = {
             col: {
+                numpy.dtype("bool"): "bool",
                 numpy.dtype("float32"): "float",
                 numpy.dtype("float64"): "float",
                 numpy.dtype("int32"): "int32",

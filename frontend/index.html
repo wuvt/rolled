@@ -64,11 +64,13 @@
           result.className = "search-result";
 
           let cover = document.createElement("img");
-          cover.src = `https://coverartarchive.org/release/${hit.document["mbid"]}/front`;
+          cover.src =
+                `https://coverartarchive.org/release/${hit.document["release_id"]}/front`;
           cover.className = "cover-art";
           cover.addEventListener("error", function() {
-            if (this.src.includes("/release/") && hit.document["mbid"] != "") {
-              this.src = `https://coverartarchive.org/release-group/${hit.document["release_group"]}/front`;
+            if (this.src.includes("/release/") && hit.document["release_id"] != "") {
+              this.src =
+                    `https://coverartarchive.org/release-group/${hit.document["release-group_id"]}/front`;
             }
             else if (this.src != "/assets/cover-404.png") {
               this.src = "/assets/cover-404.png";
@@ -85,8 +87,8 @@
             "label",
             "release_year",
             "location",
-            "mbid",
-            "release_group"
+            "release_id",
+            "release-group_id"
           ];
           for (let v of used_info)
           {
@@ -109,6 +111,18 @@
           tracklist.appendChild(tracklist_body);
           info_wrapper.appendChild(tracklist);
           
+          if (hit.document["flac_copy"]) {
+            let digital = document.createElement("img");
+            digital.src = "/assets/digital.svg";
+            digital.className = "flag"
+            info_wrapper.appendChild(digital);
+          }
+          if (hit.document["missing"]) {
+            let missing = document.createElement("img");
+            missing.src = "/assets/missing.svg";
+            missing.className = "flag"
+            info_wrapper.appendChild(missing);
+          }
           result.appendChild(info_wrapper);
 
           bucket.appendChild(result);

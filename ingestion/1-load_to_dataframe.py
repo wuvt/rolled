@@ -18,7 +18,7 @@ def run(ctx, cfg):
         # re-name cols to something nice
         sheets[i] = sheets[i][0].rename(
         {
-            k: v.lower().replace(" ", "_").split("/")[0]
+            k: v.lower().rstrip().replace(" ", "_").split("/")[0]
             for k, v in 
             zip(sheets[i][0].columns, sheets[i][0].columns)
         },
@@ -31,4 +31,20 @@ def run(ctx, cfg):
     df = df[df['artist_name'].notna()]
     df = df[df['artist_name'].str.strip() != '']
     df = df[df['artist_name'].str.lower() != 'nan']
+ 
+    # reset the index to be sequential again
+    df = df.reset_index(drop=True)
+ 
+    # enforce types
+    df["flac_copy"] = df["flac_copy"] == 'FLAC'
+    df["missing"] = df["missing"].fillna('')
+    df["missing_date"] = df["missing"]
+    df["missing"] = df["missing"] != ""
+    # remove the possibility of having the year as a float
+    df["release_year"] = df["release_year"].fillna('')
+    df["release_year"] = df["release_year"].astype(str).str.strip().str[:4]
+    
+    #Sanitize location
+    df["location"] = df["location"].str.replace("[", "").str.replace("]", "")
+
     return df

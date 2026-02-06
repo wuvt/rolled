@@ -115,6 +115,27 @@
     width: auto !important;
     transform: translate(0, -10%) !important;
 }
+.flag:only-of-type
+{
+    position: absolute;
+    top: 0em;
+    right: .2em;
+    height: 3.5em;
+}
+.flag:nth-of-type(1)
+{
+    position: absolute;
+    top: 0em;
+    right: .2em;
+    height: 3.5em;
+}
+.flag:nth-of-type(2)
+{
+    position: absolute;
+    top: 0em;
+    right: 6.4em;
+    height: 3.5em;
+}
 .album_title
 {
     font-weight: bold;
@@ -123,11 +144,11 @@
 {
     color: rgba(0, 0, 0, .7);
 }
-.mbid
+.release_id
 {
     display: none;
 }
-.release_group
+.release-group_id
 {
     display: none;
 }
