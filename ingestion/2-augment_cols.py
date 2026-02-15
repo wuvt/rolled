@@ -40,48 +40,6 @@ def cached_mb_get(endpoint, cache):
         headers=MBSEARCH_HEADERS
     ).json() if cached_response is None else cached_response
 
-# Filter releases by date
-def match_date(releases, date):
-    matched = []
-    for release in releases:
-        if "date" not in release:
-            continue
-        if release["date"][:4] == date:
-            matched.append(release)
-
-    if len(matched) == 0:
-        matched = releases
-
-    return matched
-
-# Filter releases by label
-def match_label(releases, label):
-    matched = []
-    for release in releases:
-        if "label" not in release:
-            continue
-        if release["label"] == label:
-            matched.append(release)
-
-    if len(matched) == 0:
-        matched = releases
-
-    return matched
-
-# Filter releases by country
-def match_country(releases, countries):
-    matched = []
-    for release in releases:
-        if "country" not in release:
-            continue
-        if release["country"] in countries:
-            matched.append(release)
-
-    if len(matched) == 0:
-        matched = releases
-
-    return matched
-
 def init_manifest(path):
     if not os.path.exists(path):
         print("creating fresh cache manifest...")
@@ -171,6 +129,7 @@ def run(ctx, cfg):
         rg_mbid = str(row["release-group_id"])
         label = str(row["label"])
         date = str(row["release_year"])
+        countries = ["US", "XE"] 
 
         if rg_mbid == "":
             continue
@@ -194,12 +153,24 @@ def run(ctx, cfg):
         # filter by date, label, and country.
         if "releases" in response and len(response["releases"]) > 0:
             releases = response["releases"]
+            
             if len(releases) != 1:
-                releases = match_date(releases, date)
+                releases = [
+                    rel for rel in releases 
+                    if "date" in rel and rel["date"][:4] == date
+                ] or releases
+                
                 if len(releases) != 1:
-                    releases = match_label(releases, label)
+                    releases = [
+                        rel for rel in releases 
+                        if "label" in rel and rel["label"] == label
+                    ] or releases
+
                     if len(releases) != 1:
-                        releases = match_country(releases, ["US", "XE"])
+                        releases = [
+                            rel for rel in releases 
+                            if "country" in rel and rel["country"] in countries
+                        ] or releases
 
             res["albums"].at[index, "release_id"] = releases[0]["id"]
 
