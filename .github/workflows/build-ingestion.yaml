@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - name: Get release version
+      id: get_version
+      run: echo RELEASE_VERSION=$(echo ${GITHUB_REF:20}) >> $GITHUB_ENV
     - name: Publish to GitHub Package Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
@@ -18,4 +21,4 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
         dockerfile: ingestion/Dockerfile
-        tag_names: true
+        tags: "latest,${{ env.RELEASE_VERSION }}"

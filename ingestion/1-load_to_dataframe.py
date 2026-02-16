@@ -18,7 +18,7 @@ def run(ctx, cfg):
         # re-name cols to something nice
         sheets[i] = sheets[i][0].rename(
         {
-            k: v.lower().rstrip().replace(" ", "_").split("/")[0]
+            k: v.split("/")[0].lower().rstrip().replace(" ", "_")
             for k, v in 
             zip(sheets[i][0].columns, sheets[i][0].columns)
         },
