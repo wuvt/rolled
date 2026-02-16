@@ -24,6 +24,7 @@ The ingestion and frontend are containerized, and configured entirely via enviro
 | ING_TYPESENSE_PROTO    | ingress typesense protocol. (http/https) |
 | ING_TYPESENSE_BOOTSTRAP_API_KEY    | initial/admin api key. secret. |
 | ING_TYPESENSE_SEARCH_API_KEY    | generated search/read only API key. this will be exposed on the frontend. |
+| ING_MUSICBRAINZ_INSTANCE  | instance of Musicbrainz used for fetching metadata (default: https://musicbrainz.org) |
 | FE_TYPESENSE_HOST | typesense backend endpoint relative to client |
 | FE_TYPESENSE_PORT | typesense backend port relative to client |
 | FE_TYPESENSE_PROTO | typesense backend protocol (http/https) |
