@@ -33,9 +33,9 @@ services:
       ING_POSTGRES_PORT: 5432
       ING_POSTGRES_USERNAME: root
       ING_POSTGRES_DATABASE: rolled
-      ING_TYPESENSE_HOST: typesense
-      ING_TYPESENSE_PORT: 8108
-      ING_TYPESENSE_PROTO: http
+      ING_TYPESENSE_HOST: typesense.apps.wuvt.vt.edu
+      ING_TYPESENSE_PORT: 443
+      ING_TYPESENSE_PROTO: https
       ING_MUSICBRAINZ_INSTANCE: "https://musicbrainz.org"
     volumes:
       - ./ingestion_data:/data
