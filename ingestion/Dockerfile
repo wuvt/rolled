@@ -1,6 +1,6 @@
 FROM docker.io/library/python:3.13-slim
 
-RUN pip install pandas sqlalchemy typesense openpyxl psycopg2-binary xlrd orjson
+RUN pip install pandas sqlalchemy typesense openpyxl psycopg2-binary xlrd requests
 
 WORKDIR /ingestion
 COPY . /ingestion
